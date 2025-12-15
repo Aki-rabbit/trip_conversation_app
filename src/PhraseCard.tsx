@@ -21,11 +21,22 @@ export function PhraseCard({ localPhrase, nativePhrase }: PhraseCardProps) {
         borderRadius: 18,
         border: "1px solid rgba(0,0,0,0.1)",
         background: "#fff",
+        color: "#111",
         cursor: "pointer",
-        textAlign: "left",
+        textAlign: "center",
       }}
     >
-      <div style={{ fontSize: 44, fontWeight: 700, lineHeight: 1.1 }}>
+      <div
+        style={{
+          fontSize: 44,
+          fontWeight: 700,
+          lineHeight: 1.1,
+          display: "-webkit-box",
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+        }}
+      >
         {mainText}
       </div>
       <div style={{ marginTop: 14, fontSize: 16, opacity: 0.7 }}>{subText}</div>
