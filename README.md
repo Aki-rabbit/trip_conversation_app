@@ -1,0 +1,2 @@
+# trip_conversation_app
+主にReactに慣れるためのアプリ開発
