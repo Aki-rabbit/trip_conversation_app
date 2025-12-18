@@ -11,11 +11,19 @@ function App() {
   if (screen.name === "sceneSelect") {
     return (
       <div
-        style={{ minHeight: "100vh", display: "grid", placeItems: "center" }}
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         <button
           type="button"
-          onClick={() => setScreen({ name: "scene", scene: "restaurant" })}
+          onClick={() => {
+            console.log("Button clicked!");
+            setScreen({ name: "scene", scene: "restaurant" });
+          }}
           style={{
             padding: "14px 18px",
             borderRadius: 12,
@@ -23,6 +31,7 @@ function App() {
             background: "rgba(255,255,255,0.08)",
             color: "#fff",
             cursor: "pointer",
+            fontSize: "16px",
           }}
         >
           Restaurant
@@ -30,6 +39,9 @@ function App() {
       </div>
     );
   }
+
+  // この時点で screen.name は必ず "scene"
+  if (screen.name !== "scene") return null;
 
   const phrases = PHRASES.filter((p) => p.scene === screen.scene);
   const first = phrases[0];
