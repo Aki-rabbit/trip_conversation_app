@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { PhraseCard } from "./PhraseCard";
 import { PHRASES } from "./data/phrases";
-import type { SceneKey } from "./data/phrases";
+import type { IntentKey } from "./data/phrases";
 
-type Screen = { name: "sceneSelect" } | { name: "scene"; scene: SceneKey };
+type Screen = { name: "intentSelect" } | { name: "intent"; intent: IntentKey };
 
 function App() {
-  const [screen, setScreen] = useState<Screen>({ name: "sceneSelect" });
+  const [screen, setScreen] = useState<Screen>({ name: "intentSelect" });
 
-  if (screen.name === "sceneSelect") {
+  if (screen.name === "intentSelect") {
     return (
       <div
         style={{
@@ -21,8 +21,7 @@ function App() {
         <button
           type="button"
           onClick={() => {
-            console.log("Button clicked!");
-            setScreen({ name: "scene", scene: "restaurant" });
+            setScreen({ name: "intent", intent: "thanks" });
           }}
           style={{
             padding: "14px 18px",
@@ -34,16 +33,16 @@ function App() {
             fontSize: "16px",
           }}
         >
-          Restaurant
+          Thanks
         </button>
       </div>
     );
   }
 
-  // この時点で screen.name は必ず "scene"
-  if (screen.name !== "scene") return null;
+  // この時点で screen.name は必ず "intent"
+  if (screen.name !== "intent") return null;
 
-  const phrases = PHRASES.filter((p) => p.scene === screen.scene);
+  const phrases = PHRASES.filter((p) => p.intent === screen.intent);
   const first = phrases[0];
 
   return (
@@ -51,7 +50,7 @@ function App() {
       <div style={{ width: "min(520px, 92vw)", display: "grid", gap: 16 }}>
         <button
           type="button"
-          onClick={() => setScreen({ name: "sceneSelect" })}
+          onClick={() => setScreen({ name: "intentSelect" })}
           style={{
             justifySelf: "start",
             padding: "10px 12px",
