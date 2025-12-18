@@ -43,7 +43,6 @@ function App() {
   if (screen.name !== "intent") return null;
 
   const phrases = PHRASES.filter((p) => p.intent === screen.intent);
-  const first = phrases[0];
 
   return (
     <div style={{ minHeight: "100vh", display: "grid", placeItems: "center" }}>
@@ -64,11 +63,14 @@ function App() {
           ← Back
         </button>
 
-        {first ? (
-          <PhraseCard
-            localPhrase={first.localPhrase}
-            nativePhrase={first.nativePhrase}
-          />
+        {phrases.length > 0 ? (
+          phrases.map((phrase) => (
+            <PhraseCard
+              key={phrase.id}
+              localPhrase={phrase.localPhrase}
+              nativePhrase={phrase.nativePhrase}
+            />
+          ))
         ) : (
           <div style={{ color: "#fff" }}>no phrases</div>
         )}
