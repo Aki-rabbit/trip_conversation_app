@@ -18,23 +18,83 @@ function App() {
           justifyContent: "center",
         }}
       >
-        <button
-          type="button"
-          onClick={() => {
-            setScreen({ name: "intent", intent: "thanks" });
-          }}
-          style={{
-            padding: "14px 18px",
-            borderRadius: 12,
-            border: "1px solid rgba(255,255,255,0.2)",
-            background: "rgba(255,255,255,0.08)",
-            color: "#fff",
-            cursor: "pointer",
-            fontSize: "16px",
-          }}
-        >
-          Thanks
-        </button>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <button
+            type="button"
+            onClick={() => setScreen({ name: "intent", intent: "greeting" })}
+            style={{
+              padding: "14px 18px",
+              borderRadius: 12,
+              border: "1px solid rgba(255,255,255,0.2)",
+              background: "rgba(255,255,255,0.08)",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: "16px",
+            }}
+          >
+            Greeting
+          </button>
+          <button
+            type="button"
+            onClick={() => setScreen({ name: "intent", intent: "thanks" })}
+            style={{
+              padding: "14px 18px",
+              borderRadius: 12,
+              border: "1px solid rgba(255,255,255,0.2)",
+              background: "rgba(255,255,255,0.08)",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: "16px",
+            }}
+          >
+            Thanks
+          </button>
+          <button
+            type="button"
+            onClick={() => setScreen({ name: "intent", intent: "sorry" })}
+            style={{
+              padding: "14px 18px",
+              borderRadius: 12,
+              border: "1px solid rgba(255,255,255,0.2)",
+              background: "rgba(255,255,255,0.08)",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: "16px",
+            }}
+          >
+            Sorry
+          </button>
+          <button
+            type="button"
+            onClick={() => setScreen({ name: "intent", intent: "please" })}
+            style={{
+              padding: "14px 18px",
+              borderRadius: 12,
+              border: "1px solid rgba(255,255,255,0.2)",
+              background: "rgba(255,255,255,0.08)",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: "16px",
+            }}
+          >
+            Please
+          </button>
+          <button
+            type="button"
+            onClick={() => setScreen({ name: "intent", intent: "goodbye" })}
+            style={{
+              padding: "14px 18px",
+              borderRadius: 12,
+              border: "1px solid rgba(255,255,255,0.2)",
+              background: "rgba(255,255,255,0.08)",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: "16px",
+            }}
+          >
+            Goodbye
+          </button>
+        </div>
       </div>
     );
   }
