@@ -1,73 +1,31 @@
-# React + TypeScript + Vite
+# trip_conversation_app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+主に React に慣れるためのアプリ開発
 
-Currently, two official plugins are available:
+Trip Phrase Cards
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Overview
 
-## React Compiler
+海外旅行で使える「ちょっとした一言」を、現地の言葉でさっと確認できるフレーズカードアプリ。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Purpose
 
-## Expanding the ESLint configuration
+海外旅行中に、挨拶や短い一言を現地の言葉で伝えられることで、相手とのコミュニケーションを少しだけあたたかくすることを目的とする。
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+例えば、レストランを出るときに店員さんへ「ありがとう」や軽い一言を伝えられるようになること。 このような体験が言語の壁による不安を減らし、旅をより心地よい体験に変える。
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Core Features (MVP)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- オフラインでも使えるよう、手元に保存して即時表示できる
+- シーン（例：レストラン）ごとに単語・フレーズカードを管理
+- カードは一単語や一フレーズについて、学びたい言語と母国語（日本語）で併記される
+- 最小構成：レストランで使う「ありがとう（Grazie）」カード
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# Future Enhancements
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 同行者とリンク 1 つで共有できる共有機能
+- 複数言語の切り替え機能
+- 他言語との比較モード（例：イタリア語＋英語＋スペイン語）
+- お気に入り / 履歴機能で“旅中の辞書”として使いやすく
+- PWA 化して完全オフライン対応
+- Rails バックエンドで「旅セット」を保存し URL 化
