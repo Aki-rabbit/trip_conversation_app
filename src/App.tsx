@@ -12,11 +12,41 @@ const INTENTS: {
   description: string;
   color: string;
 }[] = [
-  { key: "greeting", emoji: "😊", title: "Greeting", description: "Let's go first.", color: "#A8D5A2" },
-  { key: "thanks", emoji: "🙏", title: "Thanks", description: "Let's go first.", color: "#F5D98E" },
-  { key: "sorry", emoji: "🙇", title: "Sorry", description: "Let's give sorry.", color: "#A7C7E7" },
-  { key: "please", emoji: "🙌", title: "Please", description: "Let's give please.", color: "#FFCBA4" },
-  { key: "goodbye", emoji: "👋", title: "Goodbye", description: "Let's goodbye.", color: "#FFE5A0" },
+  {
+    key: "greeting",
+    emoji: "😊",
+    title: "Greeting",
+    description: "Let's go first.",
+    color: "#A8D5A2",
+  },
+  {
+    key: "thanks",
+    emoji: "🙏",
+    title: "Thanks",
+    description: "Let's go first.",
+    color: "#F5D98E",
+  },
+  {
+    key: "sorry",
+    emoji: "🙇",
+    title: "Sorry",
+    description: "Let's give sorry.",
+    color: "#A7C7E7",
+  },
+  {
+    key: "please",
+    emoji: "🙌",
+    title: "Please",
+    description: "Let's give please.",
+    color: "#FFCBA4",
+  },
+  {
+    key: "goodbye",
+    emoji: "👋",
+    title: "Goodbye",
+    description: "Let's goodbye.",
+    color: "#FFE5A0",
+  },
 ];
 
 type Screen =
@@ -44,7 +74,7 @@ function App() {
           <div
             style={{
               width: "100%",
-              maxWidth: 400,
+              maxWidth: 360,
               display: "flex",
               flexDirection: "column",
               gap: 12,
@@ -57,7 +87,9 @@ function App() {
                 title={intent.title}
                 description={intent.description}
                 color={intent.color}
-                onClick={() => setScreen({ name: "intent", intent: intent.key })}
+                onClick={() =>
+                  setScreen({ name: "intent", intent: intent.key })
+                }
               />
             ))}
           </div>
@@ -76,13 +108,15 @@ function App() {
         />
         <div
           style={{
-            minHeight: "calc(100vh - 64px)",
-            display: "grid",
-            placeItems: "center",
+            display: "flex",
+            justifyContent: "center",
+            padding: "24px 16px",
           }}
         >
-          <div style={{ width: "min(520px, 92vw)", display: "grid", gap: 24 }}>
-            <div style={{ color: "#fff", lineHeight: 1.8 }}>
+          <div
+            style={{ width: "100%", maxWidth: 360, display: "grid", gap: 24 }}
+          >
+            <div style={{ lineHeight: 1.8 }}>
               <div
                 style={{ display: "flex", flexDirection: "column", gap: 12 }}
               >
@@ -95,27 +129,43 @@ function App() {
                     borderRadius: 8,
                     border: "none",
                     background: "transparent",
-                    color: "#fff",
+                    color: "var(--color-text-secondary)",
                     cursor: "pointer",
                     fontSize: "14px",
                     fontWeight: 600,
-                    opacity: 0.8,
                   }}
                 >
-                  ← 戻る
+                  ← Back
                 </button>
 
-                <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>
+                <h1
+                  style={{
+                    fontSize: 28,
+                    fontWeight: 700,
+                    marginBottom: 16,
+                    color: "var(--color-text-primary)",
+                  }}
+                >
                   使い方
                 </h1>
 
                 <section style={{ marginBottom: 32 }}>
                   <h2
-                    style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 600,
+                      marginBottom: 12,
+                      color: "var(--color-text-primary)",
+                    }}
                   >
                     このアプリについて
                   </h2>
-                  <p style={{ fontSize: 16, opacity: 0.9 }}>
+                  <p
+                    style={{
+                      fontSize: 16,
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     旅行先で「気持ちの一言」を現地の言葉で伝えるためのツールです。
                     <br />
                     完璧な会話ではなく、短い一言で相手に敬意を示すことを目的としています。
@@ -124,11 +174,22 @@ function App() {
 
                 <section style={{ marginBottom: 32 }}>
                   <h2
-                    style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 600,
+                      marginBottom: 12,
+                      color: "var(--color-text-primary)",
+                    }}
                   >
                     使い方
                   </h2>
-                  <ol style={{ fontSize: 16, opacity: 0.9, paddingLeft: 20 }}>
+                  <ol
+                    style={{
+                      fontSize: 16,
+                      color: "var(--color-text-secondary)",
+                      paddingLeft: 20,
+                    }}
+                  >
                     <li style={{ marginBottom: 8 }}>
                       伝えたい「意図」を選ぶ（挨拶・感謝・謝罪など）
                     </li>
@@ -144,11 +205,21 @@ function App() {
 
                 <section>
                   <h2
-                    style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 600,
+                      marginBottom: 12,
+                      color: "var(--color-text-primary)",
+                    }}
                   >
                     意図（Intent）とは
                   </h2>
-                  <p style={{ fontSize: 16, opacity: 0.9 }}>
+                  <p
+                    style={{
+                      fontSize: 16,
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
                     場所ではなく「何を伝えたいか」でフレーズを分類しています。
                     <br />
                     「感謝」は、レストランでもホテルでも同じ言葉を使えます。
@@ -174,12 +245,12 @@ function App() {
       />
       <div
         style={{
-          minHeight: "calc(100vh - 64px)",
-          display: "grid",
-          placeItems: "center",
+          display: "flex",
+          justifyContent: "center",
+          padding: "24px 16px",
         }}
       >
-        <div style={{ width: "min(520px, 92vw)", display: "grid", gap: 16 }}>
+        <div style={{ width: "100%", maxWidth: 360, display: "grid", gap: 12 }}>
           <button
             type="button"
             onClick={() => setScreen({ name: "intentSelect" })}
@@ -187,10 +258,11 @@ function App() {
               justifySelf: "start",
               padding: "10px 12px",
               borderRadius: 10,
-              border: "1px solid rgba(255,255,255,0.2)",
-              background: "rgba(255,255,255,0.08)",
-              color: "#fff",
+              border: "none",
+              background: "transparent",
+              color: "var(--color-text-secondary)",
               cursor: "pointer",
+              fontWeight: 600,
             }}
           >
             ← Back
@@ -205,7 +277,9 @@ function App() {
               />
             ))
           ) : (
-            <div style={{ color: "#fff" }}>no phrases</div>
+            <div style={{ color: "var(--color-text-secondary)" }}>
+              no phrases
+            </div>
           )}
         </div>
       </div>

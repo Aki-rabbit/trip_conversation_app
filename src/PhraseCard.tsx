@@ -16,30 +16,35 @@ export function PhraseCard({ localPhrase, nativePhrase }: PhraseCardProps) {
       type="button"
       onClick={() => setIsFlipped((prev) => !prev)}
       style={{
-        width: "min(520px, 92vw)",
-        padding: "28px 24px",
-        borderRadius: 18,
-        border: "1px solid rgba(0,0,0,0.1)",
+        width: "100%",
+        padding: "20px",
+        borderRadius: 16,
+        border: "none",
         background: "#fff",
-        color: "#111",
+        color: "var(--color-text-primary)",
         cursor: "pointer",
         textAlign: "center",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
       }}
     >
       <div
         style={{
-          fontSize: 44,
+          fontSize: 28,
           fontWeight: 700,
-          lineHeight: 1.1,
-          display: "-webkit-box",
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: "vertical",
-          overflow: "hidden",
+          lineHeight: 1.2,
         }}
       >
         {mainText}
       </div>
-      <div style={{ marginTop: 14, fontSize: 16, opacity: 0.7 }}>{subText}</div>
+      <div
+        style={{
+          marginTop: 8,
+          fontSize: 14,
+          color: "var(--color-text-muted)",
+        }}
+      >
+        {subText}
+      </div>
     </button>
   );
 }

@@ -1,11 +1,18 @@
 :root {
+  /* カラー変数 */
+  --color-text-primary: #333;
+  --color-text-secondary: #666;
+  --color-text-muted: #888;
+  --color-background: #F5F0E8;
+  --color-card-background: #fff;
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light;
-  color: #213547;
-  background-color: #F5F0E8;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
