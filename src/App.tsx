@@ -212,7 +212,7 @@ function App() {
                       color: "var(--color-text-primary)",
                     }}
                   >
-                    意図（Intent）とは
+                    フレーズ分類について
                   </h2>
                   <p
                     style={{
