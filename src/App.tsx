@@ -1,8 +1,23 @@
 import { useState } from "react";
 import { Header } from "./Header";
+import { IntentCard } from "./IntentCard";
 import { PhraseCard } from "./PhraseCard";
 import { PHRASES } from "./data/phrases";
 import type { IntentKey } from "./data/phrases";
+
+const INTENTS: {
+  key: IntentKey;
+  emoji: string;
+  title: string;
+  description: string;
+  color: string;
+}[] = [
+  { key: "greeting", emoji: "😊", title: "Greeting", description: "Let's go first.", color: "#A8D5A2" },
+  { key: "thanks", emoji: "🙏", title: "Thanks", description: "Let's go first.", color: "#F5D98E" },
+  { key: "sorry", emoji: "🙇", title: "Sorry", description: "Let's give sorry.", color: "#A7C7E7" },
+  { key: "please", emoji: "🙌", title: "Please", description: "Let's give please.", color: "#FFCBA4" },
+  { key: "goodbye", emoji: "👋", title: "Goodbye", description: "Let's goodbye.", color: "#FFE5A0" },
+];
 
 type Screen =
   | { name: "intentSelect" }
@@ -21,88 +36,30 @@ function App() {
         />
         <div
           style={{
-            minHeight: "calc(100vh - 64px)",
             display: "flex",
-            alignItems: "center",
             justifyContent: "center",
+            padding: "24px 16px",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <button
-              type="button"
-              onClick={() => setScreen({ name: "intent", intent: "greeting" })}
-              style={{
-                padding: "14px 18px",
-                borderRadius: 12,
-                border: "1px solid rgba(255,255,255,0.2)",
-                background: "rgba(255,255,255,0.08)",
-                color: "#fff",
-                cursor: "pointer",
-                fontSize: "16px",
-              }}
-            >
-              Greeting
-            </button>
-            <button
-              type="button"
-              onClick={() => setScreen({ name: "intent", intent: "thanks" })}
-              style={{
-                padding: "14px 18px",
-                borderRadius: 12,
-                border: "1px solid rgba(255,255,255,0.2)",
-                background: "rgba(255,255,255,0.08)",
-                color: "#fff",
-                cursor: "pointer",
-                fontSize: "16px",
-              }}
-            >
-              Thanks
-            </button>
-            <button
-              type="button"
-              onClick={() => setScreen({ name: "intent", intent: "sorry" })}
-              style={{
-                padding: "14px 18px",
-                borderRadius: 12,
-                border: "1px solid rgba(255,255,255,0.2)",
-                background: "rgba(255,255,255,0.08)",
-                color: "#fff",
-                cursor: "pointer",
-                fontSize: "16px",
-              }}
-            >
-              Sorry
-            </button>
-            <button
-              type="button"
-              onClick={() => setScreen({ name: "intent", intent: "please" })}
-              style={{
-                padding: "14px 18px",
-                borderRadius: 12,
-                border: "1px solid rgba(255,255,255,0.2)",
-                background: "rgba(255,255,255,0.08)",
-                color: "#fff",
-                cursor: "pointer",
-                fontSize: "16px",
-              }}
-            >
-              Please
-            </button>
-            <button
-              type="button"
-              onClick={() => setScreen({ name: "intent", intent: "goodbye" })}
-              style={{
-                padding: "14px 18px",
-                borderRadius: 12,
-                border: "1px solid rgba(255,255,255,0.2)",
-                background: "rgba(255,255,255,0.08)",
-                color: "#fff",
-                cursor: "pointer",
-                fontSize: "16px",
-              }}
-            >
-              Goodbye
-            </button>
+          <div
+            style={{
+              width: "100%",
+              maxWidth: 400,
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
+            }}
+          >
+            {INTENTS.map((intent) => (
+              <IntentCard
+                key={intent.key}
+                emoji={intent.emoji}
+                title={intent.title}
+                description={intent.description}
+                color={intent.color}
+                onClick={() => setScreen({ name: "intent", intent: intent.key })}
+              />
+            ))}
           </div>
         </div>
       </div>
