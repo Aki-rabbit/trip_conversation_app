@@ -18,79 +18,93 @@ export function Header({
   return (
     <header
       style={{
-        position: "relative",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "32px 24px 16px",
+        padding: "24px 16px 16px",
       }}
     >
+      {/* 上段: 言語切り替え & 使い方ボタン */}
       <div
         style={{
-          position: "absolute",
-          top: 32,
-          left: 24,
+          width: "100%",
+          maxWidth: 360,
           display: "flex",
-          gap: 4,
-          background: "#f0f0f0",
-          borderRadius: 8,
-          padding: 4,
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 16,
         }}
       >
-        <button
-          type="button"
-          onClick={() => onLanguageChange("it")}
+        <div
           style={{
-            padding: "6px 12px",
-            border: "none",
-            borderRadius: 6,
-            background: selectedLanguage === "it" ? "#fff" : "transparent",
-            boxShadow: selectedLanguage === "it" ? "0 1px 3px rgba(0,0,0,0.1)" : "none",
-            cursor: "pointer",
-            fontSize: 14,
-            fontWeight: 600,
+            display: "flex",
+            gap: 4,
+            background: "#f0f0f0",
+            borderRadius: 8,
+            padding: 4,
           }}
         >
-          🇮🇹 IT
-        </button>
-        <button
-          type="button"
-          onClick={() => onLanguageChange("de")}
-          style={{
-            padding: "6px 12px",
-            border: "none",
-            borderRadius: 6,
-            background: selectedLanguage === "de" ? "#fff" : "transparent",
-            boxShadow: selectedLanguage === "de" ? "0 1px 3px rgba(0,0,0,0.1)" : "none",
-            cursor: "pointer",
-            fontSize: 14,
-            fontWeight: 600,
-          }}
-        >
-          🇩🇪 DE
-        </button>
+          <button
+            type="button"
+            onClick={() => onLanguageChange("it")}
+            style={{
+              padding: "6px 12px",
+              border: "none",
+              borderRadius: 6,
+              background: selectedLanguage === "it" ? "#fff" : "transparent",
+              boxShadow:
+                selectedLanguage === "it"
+                  ? "0 1px 3px rgba(0,0,0,0.1)"
+                  : "none",
+              cursor: "pointer",
+              fontSize: 14,
+              fontWeight: 600,
+            }}
+          >
+            🇮🇹 IT
+          </button>
+          <button
+            type="button"
+            onClick={() => onLanguageChange("de")}
+            style={{
+              padding: "6px 12px",
+              border: "none",
+              borderRadius: 6,
+              background: selectedLanguage === "de" ? "#fff" : "transparent",
+              boxShadow:
+                selectedLanguage === "de"
+                  ? "0 1px 3px rgba(0,0,0,0.1)"
+                  : "none",
+              cursor: "pointer",
+              fontSize: 14,
+              fontWeight: 600,
+            }}
+          >
+            🇩🇪 DE
+          </button>
+        </div>
+
+        {showHowToUse ? (
+          <button
+            type="button"
+            onClick={onNavigateHowToUse}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#333",
+              fontSize: 16,
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            使い方
+          </button>
+        ) : (
+          <div />
+        )}
       </div>
 
-      {showHowToUse && (
-        <button
-          type="button"
-          onClick={onNavigateHowToUse}
-          style={{
-            position: "absolute",
-            top: 32,
-            right: 24,
-            background: "none",
-            border: "none",
-            color: "#333",
-            fontSize: 20,
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
-        >
-          使い方
-        </button>
-      )}
-
+      {/* 下段: タイトル */}
       <button
         type="button"
         onClick={onNavigateHome}
