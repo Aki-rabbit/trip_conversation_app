@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "./Header";
 import { IntentCard } from "./IntentCard";
 import { PhraseCard } from "./PhraseCard";
 import { PHRASES } from "./data/phrases";
-import type { IntentKey } from "./data/phrases";
+import type { IntentKey, Language } from "./data/phrases";
 
 const INTENTS: {
   key: IntentKey;
@@ -56,6 +56,14 @@ type Screen =
 
 function App() {
   const [screen, setScreen] = useState<Screen>({ name: "intentSelect" });
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => {
+    const saved = localStorage.getItem("selectedLanguage");
+    return (saved === "it" || saved === "de") ? saved : "it";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("selectedLanguage", selectedLanguage);
+  }, [selectedLanguage]);
 
   if (screen.name === "intentSelect") {
     return (
@@ -63,6 +71,8 @@ function App() {
         <Header
           onNavigateHome={() => setScreen({ name: "intentSelect" })}
           onNavigateHowToUse={() => setScreen({ name: "howToUse" })}
+          selectedLanguage={selectedLanguage}
+          onLanguageChange={setSelectedLanguage}
         />
         <div
           style={{
@@ -105,6 +115,8 @@ function App() {
           onNavigateHome={() => setScreen({ name: "intentSelect" })}
           onNavigateHowToUse={() => setScreen({ name: "howToUse" })}
           showHowToUse={false}
+          selectedLanguage={selectedLanguage}
+          onLanguageChange={setSelectedLanguage}
         />
         <div
           style={{
@@ -235,13 +247,17 @@ function App() {
 
   if (screen.name !== "intent") return null;
 
-  const phrases = PHRASES.filter((p) => p.intent === screen.intent);
+  const phrases = PHRASES.filter(
+    (p) => p.intent === screen.intent && p.language === selectedLanguage
+  );
 
   return (
     <div style={{ minHeight: "100vh" }}>
       <Header
         onNavigateHome={() => setScreen({ name: "intentSelect" })}
         onNavigateHowToUse={() => setScreen({ name: "howToUse" })}
+        selectedLanguage={selectedLanguage}
+        onLanguageChange={setSelectedLanguage}
       />
       <div
         style={{
