@@ -1,20 +1,11 @@
-import { useState } from "react";
-
 type PhraseCardProps = {
   localPhrase: string; // 現地の言葉
   nativePhrase: string; // 自分の言語（日本語）
 };
 
 export function PhraseCard({ localPhrase, nativePhrase }: PhraseCardProps) {
-  const [isFlipped, setIsFlipped] = useState(false);
-
-  const mainText = isFlipped ? nativePhrase : localPhrase;
-  const subText = isFlipped ? localPhrase : nativePhrase;
-
   return (
-    <button
-      type="button"
-      onClick={() => setIsFlipped((prev) => !prev)}
+    <div
       style={{
         width: "100%",
         padding: "20px",
@@ -22,7 +13,6 @@ export function PhraseCard({ localPhrase, nativePhrase }: PhraseCardProps) {
         border: "none",
         background: "#fff",
         color: "var(--color-text-primary)",
-        cursor: "pointer",
         textAlign: "center",
         boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
       }}
@@ -34,7 +24,7 @@ export function PhraseCard({ localPhrase, nativePhrase }: PhraseCardProps) {
           lineHeight: 1.2,
         }}
       >
-        {mainText}
+        {localPhrase}
       </div>
       <div
         style={{
@@ -43,8 +33,8 @@ export function PhraseCard({ localPhrase, nativePhrase }: PhraseCardProps) {
           color: "var(--color-text-muted)",
         }}
       >
-        {subText}
+        {nativePhrase}
       </div>
-    </button>
+    </div>
   );
 }
