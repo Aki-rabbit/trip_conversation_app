@@ -290,6 +290,7 @@ function App() {
                 key={phrase.id}
                 localPhrase={phrase.localPhrase}
                 nativePhrase={phrase.nativePhrase}
+                language={phrase.language}
               />
             ))
           ) : (
