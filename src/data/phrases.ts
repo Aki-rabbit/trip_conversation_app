@@ -10,6 +10,24 @@ export type Phrase = {
   nativePhrase: string;
 };
 
+export type CustomIntent = {
+  key: string;
+  emoji: string;
+  title: string;
+  isCustom: true;
+  createdAt: number;
+};
+
+export type CustomPhrase = {
+  id: string;
+  intent: string;
+  language: Language;
+  localPhrase: string;
+  nativePhrase: string;
+  isCustom: true;
+  createdAt: number;
+};
+
 export const PHRASES: Phrase[] = [
   // ===== Italian (it) =====
 

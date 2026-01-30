@@ -2,8 +2,13 @@ import { useState, useEffect } from "react";
 import { Header } from "./Header";
 import { IntentCard } from "./IntentCard";
 import { PhraseCard } from "./PhraseCard";
+import { SelectIntentModal } from "./SelectIntentModal";
+import { CreateCategoryModal } from "./CreateCategoryModal";
+import { AddPhraseModal } from "./AddPhraseModal";
 import { PHRASES } from "./data/phrases";
-import type { IntentKey, Language } from "./data/phrases";
+import type { IntentKey, Language, CustomIntent, CustomPhrase } from "./data/phrases";
+import { getCustomIntents, saveCustomIntent } from "./data/customIntents";
+import { getCustomPhrases, saveCustomPhrase, deleteCustomPhrase } from "./data/customPhrases";
 
 const INTENTS: {
   key: IntentKey;
@@ -51,8 +56,14 @@ const INTENTS: {
 
 type Screen =
   | { name: "intentSelect" }
-  | { name: "intent"; intent: IntentKey }
+  | { name: "intent"; intent: string }
   | { name: "howToUse" };
+
+type ModalState =
+  | { type: "none" }
+  | { type: "selectIntent" }
+  | { type: "createCategory" }
+  | { type: "addPhrase"; intent: string };
 
 function App() {
   const [screen, setScreen] = useState<Screen>({ name: "intentSelect" });
@@ -60,10 +71,44 @@ function App() {
     const saved = localStorage.getItem("selectedLanguage");
     return (saved === "it" || saved === "de") ? saved : "it";
   });
+  const [customIntents, setCustomIntents] = useState<CustomIntent[]>(() =>
+    getCustomIntents()
+  );
+  const [customPhrases, setCustomPhrases] = useState<CustomPhrase[]>(() =>
+    getCustomPhrases()
+  );
+  const [modal, setModal] = useState<ModalState>({ type: "none" });
 
   useEffect(() => {
     localStorage.setItem("selectedLanguage", selectedLanguage);
   }, [selectedLanguage]);
+
+  const handleCreateCategory = (emoji: string, name: string) => {
+    const newIntent = saveCustomIntent({ emoji, title: name });
+    setCustomIntents([...customIntents, newIntent]);
+    setModal({ type: "addPhrase", intent: newIntent.key });
+  };
+
+  const handleAddPhrase = (
+    language: Language,
+    localPhrase: string,
+    nativePhrase: string
+  ) => {
+    if (modal.type !== "addPhrase") return;
+    const newPhrase = saveCustomPhrase({
+      intent: modal.intent,
+      language,
+      localPhrase,
+      nativePhrase,
+    });
+    setCustomPhrases([...customPhrases, newPhrase]);
+    setModal({ type: "none" });
+  };
+
+  const handleDeletePhrase = (id: string) => {
+    deleteCustomPhrase(id);
+    setCustomPhrases(customPhrases.filter((p) => p.id !== id));
+  };
 
   if (screen.name === "intentSelect") {
     return (
@@ -102,8 +147,62 @@ function App() {
                 }
               />
             ))}
+
+            {customIntents.map((intent) => (
+              <IntentCard
+                key={intent.key}
+                emoji={intent.emoji}
+                title={intent.title}
+                description=""
+                color="#E0E0E0"
+                onClick={() =>
+                  setScreen({ name: "intent", intent: intent.key })
+                }
+              />
+            ))}
+
+            <button
+              type="button"
+              onClick={() => setModal({ type: "selectIntent" })}
+              style={{
+                padding: 14,
+                borderRadius: 10,
+                border: "1px dashed #ccc",
+                background: "transparent",
+                color: "#888",
+                fontSize: 16,
+                cursor: "pointer",
+              }}
+            >
+              + Add
+            </button>
           </div>
         </div>
+
+        {modal.type === "selectIntent" && (
+          <SelectIntentModal
+            customIntents={customIntents}
+            onSelect={(intentKey) =>
+              setModal({ type: "addPhrase", intent: intentKey })
+            }
+            onNewCategory={() => setModal({ type: "createCategory" })}
+            onClose={() => setModal({ type: "none" })}
+          />
+        )}
+
+        {modal.type === "createCategory" && (
+          <CreateCategoryModal
+            onCreate={handleCreateCategory}
+            onClose={() => setModal({ type: "none" })}
+          />
+        )}
+
+        {modal.type === "addPhrase" && (
+          <AddPhraseModal
+            onAdd={handleAddPhrase}
+            onClose={() => setModal({ type: "none" })}
+          />
+        )}
       </div>
     );
   }
@@ -251,6 +350,10 @@ function App() {
     (p) => p.intent === screen.intent && p.language === selectedLanguage
   );
 
+  const filteredCustomPhrases = customPhrases.filter(
+    (p) => p.intent === screen.intent && p.language === selectedLanguage
+  );
+
   return (
     <div style={{ minHeight: "100vh" }}>
       <Header
@@ -284,20 +387,25 @@ function App() {
             ← Back
           </button>
 
-          {phrases.length > 0 ? (
-            phrases.map((phrase) => (
-              <PhraseCard
-                key={phrase.id}
-                localPhrase={phrase.localPhrase}
-                nativePhrase={phrase.nativePhrase}
-                language={phrase.language}
-              />
-            ))
-          ) : (
-            <div style={{ color: "var(--color-text-secondary)" }}>
-              no phrases
-            </div>
-          )}
+          {phrases.map((phrase) => (
+            <PhraseCard
+              key={phrase.id}
+              localPhrase={phrase.localPhrase}
+              nativePhrase={phrase.nativePhrase}
+              language={phrase.language}
+            />
+          ))}
+
+          {filteredCustomPhrases.map((phrase) => (
+            <PhraseCard
+              key={phrase.id}
+              localPhrase={phrase.localPhrase}
+              nativePhrase={phrase.nativePhrase}
+              language={phrase.language}
+              isCustom
+              onDelete={() => handleDeletePhrase(phrase.id)}
+            />
+          ))}
         </div>
       </div>
     </div>

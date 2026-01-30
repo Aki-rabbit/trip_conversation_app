@@ -4,9 +4,11 @@ type PhraseCardProps = {
   localPhrase: string; // 現地の言葉
   nativePhrase: string; // 自分の言語（日本語）
   language: Language; // 言語コード
+  isCustom?: boolean;
+  onDelete?: () => void;
 };
 
-export function PhraseCard({ localPhrase, nativePhrase, language }: PhraseCardProps) {
+export function PhraseCard({ localPhrase, nativePhrase, language, isCustom, onDelete }: PhraseCardProps) {
   const speak = () => {
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(localPhrase);
@@ -57,6 +59,25 @@ export function PhraseCard({ localPhrase, nativePhrase, language }: PhraseCardPr
           <path d="M18 5c3 3 3 11 0 14" />
         </svg>
       </button>
+      {isCustom && onDelete && (
+        <button
+          type="button"
+          onClick={onDelete}
+          style={{
+            position: "absolute",
+            top: 12,
+            right: 12,
+            padding: 4,
+            border: "none",
+            background: "transparent",
+            cursor: "pointer",
+            fontSize: 18,
+            color: "#888",
+          }}
+        >
+          ×
+        </button>
+      )}
       <div
         style={{
           fontSize: 28,
