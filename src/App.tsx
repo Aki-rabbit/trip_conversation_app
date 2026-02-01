@@ -6,7 +6,7 @@ import { CreateCategoryModal } from "./CreateCategoryModal";
 import { AddPhraseModal } from "./AddPhraseModal";
 import { PHRASES } from "./data/phrases";
 import type { IntentKey, Language, CustomIntent, CustomPhrase } from "./data/phrases";
-import { getCustomIntents, saveCustomIntent } from "./data/customIntents";
+import { getCustomIntents, saveCustomIntent, deleteCustomIntent } from "./data/customIntents";
 import { getCustomPhrases, saveCustomPhrase, deleteCustomPhrase } from "./data/customPhrases";
 
 const INTENTS: {
@@ -109,6 +109,11 @@ function App() {
     setCustomPhrases(customPhrases.filter((p) => p.id !== id));
   };
 
+  const handleDeleteIntent = (key: string) => {
+    deleteCustomIntent(key);
+    setCustomIntents(customIntents.filter((i) => i.key !== key));
+  };
+
   if (screen.name === "intentSelect") {
     return (
       <div style={{ minHeight: "100vh" }}>
@@ -157,6 +162,8 @@ function App() {
                 onClick={() =>
                   setScreen({ name: "intent", intent: intent.key })
                 }
+                isCustom
+                onDelete={() => handleDeleteIntent(intent.key)}
               />
             ))}
 
