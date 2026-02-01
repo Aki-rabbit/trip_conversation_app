@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Header } from "./Header";
 import { IntentCard } from "./IntentCard";
 import { PhraseCard } from "./PhraseCard";
-import { SelectIntentModal } from "./SelectIntentModal";
 import { CreateCategoryModal } from "./CreateCategoryModal";
 import { AddPhraseModal } from "./AddPhraseModal";
 import { PHRASES } from "./data/phrases";
@@ -61,7 +60,6 @@ type Screen =
 
 type ModalState =
   | { type: "none" }
-  | { type: "selectIntent" }
   | { type: "createCategory" }
   | { type: "addPhrase"; intent: string };
 
@@ -86,7 +84,8 @@ function App() {
   const handleCreateCategory = (emoji: string, name: string) => {
     const newIntent = saveCustomIntent({ emoji, title: name });
     setCustomIntents([...customIntents, newIntent]);
-    setModal({ type: "addPhrase", intent: newIntent.key });
+    setModal({ type: "none" });
+    setScreen({ name: "intent", intent: newIntent.key });
   };
 
   const handleAddPhrase = (
@@ -163,7 +162,7 @@ function App() {
 
             <button
               type="button"
-              onClick={() => setModal({ type: "selectIntent" })}
+              onClick={() => setModal({ type: "createCategory" })}
               style={{
                 padding: 14,
                 borderRadius: 10,
@@ -178,17 +177,6 @@ function App() {
             </button>
           </div>
         </div>
-
-        {modal.type === "selectIntent" && (
-          <SelectIntentModal
-            customIntents={customIntents}
-            onSelect={(intentKey) =>
-              setModal({ type: "addPhrase", intent: intentKey })
-            }
-            onNewCategory={() => setModal({ type: "createCategory" })}
-            onClose={() => setModal({ type: "none" })}
-          />
-        )}
 
         {modal.type === "createCategory" && (
           <CreateCategoryModal
@@ -406,8 +394,31 @@ function App() {
               onDelete={() => handleDeletePhrase(phrase.id)}
             />
           ))}
+
+          <button
+            type="button"
+            onClick={() => setModal({ type: "addPhrase", intent: screen.intent })}
+            style={{
+              padding: 14,
+              borderRadius: 10,
+              border: "1px dashed #ccc",
+              background: "transparent",
+              color: "#888",
+              fontSize: 16,
+              cursor: "pointer",
+            }}
+          >
+            + Add
+          </button>
         </div>
       </div>
+
+      {modal.type === "addPhrase" && (
+        <AddPhraseModal
+          onAdd={handleAddPhrase}
+          onClose={() => setModal({ type: "none" })}
+        />
+      )}
     </div>
   );
 }

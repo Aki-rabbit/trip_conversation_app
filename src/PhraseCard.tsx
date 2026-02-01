@@ -1,4 +1,5 @@
 import type { Language } from "./data/phrases";
+import { DeleteButton } from "./DeleteButton";
 
 type PhraseCardProps = {
   localPhrase: string; // 現地の言葉
@@ -59,25 +60,7 @@ export function PhraseCard({ localPhrase, nativePhrase, language, isCustom, onDe
           <path d="M18 5c3 3 3 11 0 14" />
         </svg>
       </button>
-      {isCustom && onDelete && (
-        <button
-          type="button"
-          onClick={onDelete}
-          style={{
-            position: "absolute",
-            top: 12,
-            right: 12,
-            padding: 4,
-            border: "none",
-            background: "transparent",
-            cursor: "pointer",
-            fontSize: 18,
-            color: "#888",
-          }}
-        >
-          ×
-        </button>
-      )}
+      {isCustom && onDelete && <DeleteButton onClick={onDelete} />}
       <div
         style={{
           fontSize: 28,
