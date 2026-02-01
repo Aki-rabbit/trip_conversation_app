@@ -39,7 +39,7 @@ export function CreateCategoryModal({
     >
       <div
         style={{
-          background: "#fff",
+          background: "var(--color-background)",
           borderRadius: 16,
           padding: 24,
           width: "100%",
