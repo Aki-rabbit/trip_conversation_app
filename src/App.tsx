@@ -300,13 +300,36 @@ function App() {
                       伝えたい「意図」を選ぶ（挨拶・感謝・謝罪など）
                     </li>
                     <li style={{ marginBottom: 8 }}>
-                      表示されたフレーズを選ぶ
+                      表示されたフレーズを確認する
                     </li>
                     <li style={{ marginBottom: 8 }}>
-                      カードをタップすると現地語 ↔ 日本語が切り替わる
+                      スピーカーボタンで発音を聞ける
                     </li>
                     <li style={{ marginBottom: 8 }}>実際の場面で使ってみる</li>
                   </ol>
+                </section>
+
+                <section style={{ marginBottom: 32 }}>
+                  <h2
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 600,
+                      marginBottom: 12,
+                      color: "var(--color-text-primary)",
+                    }}
+                  >
+                    カスタマイズ
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: 16,
+                      color: "var(--color-text-secondary)",
+                    }}
+                  >
+                    自分だけのカテゴリやフレーズを追加できます。
+                    <br />
+                    追加したものは「×」ボタンで削除できます。
+                  </p>
                 </section>
 
                 <section>
